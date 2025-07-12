@@ -114,8 +114,8 @@ body {
     </div>
     <canvas id="confettiCanvas"></canvas>
   </div>
-
-  <audio id="bgMusic" src="reward.mp3" preload="auto"></audio>
+<audio id="bgMusic" src="reward.mp3" preload="auto"></audio>
+<audio id="kurotSound" src="kurot.mp3" preload="auto"></audio>
 
   <script>
     const canvas = document.getElementById('mazeCanvas');
@@ -149,10 +149,13 @@ function revealFinal(choice) {
   document.getElementById('fakeChoices').style.display = 'none';
   document.getElementById('finalMsg').style.display = 'block';
   document.getElementById('chosen').innerText = choice;
-  if (choice === 'Kurot') 
-  flashKurotEffect();
-  const kurotSound = new Audio('kurot.mp3');
-kurotSound.play();
+  if (choice === 'Kurot') {
+    flashKurotEffect();
+    const sound = document.getElementById('kurotSound');
+    sound.play().catch(e => {
+      console.warn('Kurot sound blocked by browser:', e);
+    });
+  }
 }
     function loadLevel(index) {
       mazeSize = levelSizes[index];
