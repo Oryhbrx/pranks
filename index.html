@@ -183,10 +183,48 @@
 
     <!-- Everything up to generateMaze() stays the same -->
 
-    function generateMaze(size) {
-      // [Maze generation logic – you already have this part complete]
-      // Ends with return maze;
-      return maze;
+   function generateMaze(size) {
+  const maze = Array(size).fill().map(() => Array(size).fill(1));
+  const visited = Array(size).fill().map(() => Array(size).fill(false));
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function carve(x, y) {
+    visited[y][x] = true;
+    maze[y][x] = 0;
+    const directions = shuffle([[0, -1], [0, 1], [-1, 0], [1, 0]]);
+    for (const [dx, dy] of directions) {
+      const nx = x + dx * 2;
+      const ny = y + dy * 2;
+      if (nx >= 0 && ny >= 0 && nx < size && ny < size && !visited[ny][nx]) {
+        maze[y + dy][x + dx] = 0;
+        carve(nx, ny);
+      }
+    }
+  }
+
+  carve(0, 0);
+  maze[size - 1][size - 1] = 0;
+
+  if (
+    (maze[size - 2]?.[size - 1] ?? 1) === 1 &&
+    (maze[size - 1]?.[size - 2] ?? 1) === 1
+  ) {
+    if (size > 2) {
+      maze[size - 2][size - 1] = 0;
+    } else {
+      maze[size - 1][size - 2] = 0;
+    }
+  }
+
+  return maze;
+}
     }
 
     function drawMaze() {
