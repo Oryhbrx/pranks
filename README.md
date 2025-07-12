@@ -1,1 +1,1 @@
-# pranks
+# fun
