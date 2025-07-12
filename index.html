@@ -198,8 +198,9 @@ body {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let y = 0; y < mazeSize; y++) {
         for (let x = 0; x < mazeSize; x++) {
-          ctx.fillStyle = (x === mazeSize - 1 && y === mazeSize - 1)
-  ? '#ffff00' : (maze[y][x] === 1 ? '#ff0000' : '#1a1a1a');
+         ctx.fillStyle = (x === mazeSize - 1 && y === mazeSize - 1)
+  ? '#ffff33' // Goal: neon yellow
+  : (maze[y][x] === 1 ? '#ff1a1a' : '#333333'); // Walls red, Paths dark gray
           ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
         }
       }
