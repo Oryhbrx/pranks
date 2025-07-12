@@ -149,7 +149,10 @@ function revealFinal(choice) {
   document.getElementById('fakeChoices').style.display = 'none';
   document.getElementById('finalMsg').style.display = 'block';
   document.getElementById('chosen').innerText = choice;
-  if (choice === 'Kurot') flashKurotEffect();
+  if (choice === 'Kurot') 
+  flashKurotEffect();
+  const kurotSound = new Audio('kurot.mp3');
+kurotSound.play();
 }
     function loadLevel(index) {
       mazeSize = levelSizes[index];
